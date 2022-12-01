@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "bimapping",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/GoodHatsLLC/Bimapping.git",
+      "state" : {
+        "revision" : "3452b18b413cd24c54bc3eba97f603742d234d5e",
+        "version" : "0.1.0"
+      }
+    }
+  ],
+  "version" : 2
+}
