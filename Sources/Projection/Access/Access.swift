@@ -1,3 +1,5 @@
+// MARK: - Access
+
 /// An Access provides some opaque access to an underlying `Value`.
 ///
 /// An access should allow a consumer to check its validity prior to use.

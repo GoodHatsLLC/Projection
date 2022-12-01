@@ -64,7 +64,7 @@ struct ArrayState: Codable & Equatable & Hashable & Sendable {
 
 struct OptionalTest: Codable & Equatable & Hashable & Sendable {
     var optionalPresentState: OtherState? = .init(abc: "Optional", aaState: .init())
-    var optionalNilState: OtherState? = nil
+    var optionalNilState: OtherState?
 }
 
 // MARK: - OtherState

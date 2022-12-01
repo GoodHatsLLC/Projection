@@ -87,7 +87,7 @@ final class ProjectionTests: XCTestCase {
                 .init(text: "one"),
                 .init(text: "two"),
                 .init(text: "three"),
-                .init(text: "four"),
+                .init(text: "four")
             ]
         )
         let rootProjection: Projection<ArrayState> = .captured(
@@ -105,7 +105,7 @@ final class ProjectionTests: XCTestCase {
                 .init(text: "one"),
                 .init(text: "two"),
                 .init(text: "three"),
-                .init(text: "four"),
+                .init(text: "four")
             ]
         )
         let rootProjection: Projection<ArrayState> = .captured(

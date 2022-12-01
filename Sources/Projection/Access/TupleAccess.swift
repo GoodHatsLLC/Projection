@@ -1,3 +1,5 @@
+// MARK: - TupleAccess
+
 /// A namespace for varios sizes of tuples containing multiple `Access` conformers.
 enum TupleAccess {}
 

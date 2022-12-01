@@ -4,7 +4,7 @@ public struct CapturedAccess<Value>: Access {
 
     public init(
         getter: @escaping () -> Value,
-        setter: @escaping (Value) -> Void,
+        setter: @escaping (_ value: Value) -> Void,
         isValid: @escaping () -> Bool = { true }
     ) {
         self.getter = getter

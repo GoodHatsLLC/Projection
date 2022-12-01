@@ -10,10 +10,10 @@ let package = Package(
         .library(
             name: "Projection",
             targets: ["Projection"]
-        ),
+        )
     ],
     dependencies: [
-        .package(url: "https://github.com/GoodHatsLLC/Bimapping.git", .upToNextMajor(from: "0.1.0")),
+        .package(url: "https://github.com/GoodHatsLLC/Bimapping.git", .upToNextMajor(from: "0.1.0"))
     ],
     targets: [
         .target(
@@ -25,6 +25,6 @@ let package = Package(
         .testTarget(
             name: "ProjectionTests",
             dependencies: ["Projection"]
-        ),
+        )
     ]
 )
