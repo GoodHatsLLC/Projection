@@ -16,15 +16,7 @@ extension Access {
         AnyAccess(access: self)
     }
 
-    public func map<T>(
-        validity: Validity<Value> = .ifParent,
-        map: some GetMap<Value, T>
-    ) -> Projection<T> {
-        .init(
-            upstream: self,
-            validity: validity,
-            map: map,
-            mapValidity: .ifParent
-        )
+    public func any() -> any Access<Value> {
+        self
     }
 }

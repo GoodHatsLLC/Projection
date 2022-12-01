@@ -33,7 +33,7 @@ Operators available on `Projections` and not on `Bindings` include:
 
 ## Limitations
 
-`Projections` are current only about [2/3 as fast as `Bindings`](https://github.com/GoodHatsLLC/Projection/blob/main/Tests/ProjectionTests/Benchmarks.swift).
+`Projections` are [about 15% slower ](https://github.com/GoodHatsLLC/Projection/blob/main/Tests/ProjectionTests/Benchmarks.swift) `Bindings`.
 
 ## Examples
 

@@ -1,10 +1,10 @@
 import Projection
 import XCTest
 
-// MARK: - Benchmarks
+// MARK: - BenchmarkTests
 
 @MainActor
-final class Benchmarks: XCTestCase {
+final class BenchmarkTests: XCTestCase {
 
     var nested: Nested.Value = .end
 
@@ -16,8 +16,8 @@ final class Benchmarks: XCTestCase {
         nested = .end
     }
 
-    func disabled_test_projectionPerformance() throws {
-        measure { // Time: 0.940 sec
+    func test_projectionPerformance() throws {
+        measure { // Time: 0.725 sec
             let projection = Projection<Nested.Value>() {
                 self.nested
             } setter: { value in
@@ -35,9 +35,9 @@ final class Benchmarks: XCTestCase {
 
 #if canImport(SwiftUI)
 import SwiftUI
-extension Benchmarks {
-    func disabled_testBindingPerformance() throws {
-        measure { // Time: 0.620 sec
+extension BenchmarkTests {
+    func testBindingPerformance() throws {
+        measure { // Time: 0.629 sec
             let projection = Binding {
                 self.nested
             } set: { value in

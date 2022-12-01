@@ -1,23 +1,21 @@
-/// An `Access` conformer which provides an object's field as its `Value`.
-@MainActor
-public struct ReferenceAccess<Value>: Access {
+extension Projecting {
+    /// An `Access` conformer which provides an object's field as its `Value`.
+    @MainActor
+    public struct ReferenceAccess<Root: AnyObject, Value>: Access {
 
-    public init<T: AnyObject>(from: T, path: ReferenceWritableKeyPath<T, Value>) {
-        getter = {
-            from[keyPath: path]
+        public init(from root: Root, path: ReferenceWritableKeyPath<Root, Value>) {
+            self.root = root
+            self.path = path
         }
-        setter = {
-            from[keyPath: path] = $0
+
+        let root: Root
+        let path: ReferenceWritableKeyPath<Root, Value>
+
+        public var value: Value {
+            get { root[keyPath: path] }
+            nonmutating set { root[keyPath: path] = newValue }
         }
+
+        public func isValid() -> Bool { true }
     }
-
-    private let getter: () -> Value
-    private let setter: (Value) -> Void
-
-    public var value: Value {
-        get { getter() }
-        nonmutating set { setter(newValue) }
-    }
-
-    public func isValid() -> Bool { true }
 }

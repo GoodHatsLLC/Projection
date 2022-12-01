@@ -4,9 +4,6 @@ public enum Tuple {}
 
 // MARK: Creation
 extension Tuple {
-    public static func create<A>(_ a: A) -> Size1<A> {
-        Size1(a: a)
-    }
 
     public static func create<A, B>(_ a: A, _ b: B) -> Size2<A, B> {
         Size2(a: a, b: b)
@@ -18,18 +15,8 @@ extension Tuple {
 
 }
 
-// MARK: implementation
+// MARK: Implementation
 extension Tuple {
-    public struct Size1<A> {
-        public var a: A
-
-        public var tuple: A {
-            get { a }
-            set {
-                a = newValue
-            }
-        }
-    }
 
     public struct Size2<A, B> {
         public var a: A
@@ -61,32 +48,16 @@ extension Tuple {
 
 }
 
-// MARK: - Tuple.Size1 + Identifiable
-
-extension Tuple.Size1: Identifiable where A: Identifiable {
-    public var id: String { "\(a.id)" }
-}
-
 // MARK: - Tuple.Size2 + Identifiable
 
 extension Tuple.Size2: Identifiable where A: Identifiable, B: Identifiable {
-    // FIXME: should hash initial values first since they could contain '+'
-    public var id: String { "\(a.id)+\(b.id)" }
+    public var id: String { "\(a.id.hashValue)\(b.id.hashValue):\(a.id)+\(b.id)" }
 }
 
 // MARK: - Tuple.Size3 + Identifiable
 
 extension Tuple.Size3: Identifiable where A: Identifiable, B: Identifiable, C: Identifiable {
-    // FIXME: should hash initial values first since they could contain '+'
-    public var id: String { "\(a.id)+\(b.id)+\(c.id)" }
-}
-
-// MARK: - Tuple.Size1 + Equatable
-
-extension Tuple.Size1: Equatable where A: Equatable {
-    public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.a == rhs.a
-    }
+    public var id: String { "\(a.id.hashValue)+\(b.id.hashValue)+\(c.id.hashValue):\(a.id)+\(b.id)+\(c.id)" }
 }
 
 // MARK: - Tuple.Size2 + Equatable
@@ -105,14 +76,6 @@ extension Tuple.Size3: Equatable where A: Equatable, B: Equatable, C: Equatable 
         lhs.a == rhs.a
             && lhs.b == rhs.b
             && lhs.c == rhs.c
-    }
-}
-
-// MARK: - Tuple.Size1 + Hashable
-
-extension Tuple.Size1: Hashable where A: Hashable {
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(a)
     }
 }
 

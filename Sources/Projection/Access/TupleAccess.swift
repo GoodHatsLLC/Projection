@@ -1,10 +1,11 @@
-// MARK: - TupleAccess
+// MARK: - Projecting.Tuple
 
-/// A namespace for varios sizes of tuples containing multiple `Access` conformers.
-enum TupleAccess {}
+extension Projecting {
 
-extension TupleAccess {
+    public enum Tuple {}
+}
 
+extension Projecting.Tuple {
     /// An `Access` conformer containing two underlying accesses.
     @MainActor
     struct SizeTwo<A, B>: Access {
@@ -61,5 +62,4 @@ extension TupleAccess {
         private let cAccess: any Access<C>
 
     }
-
 }

@@ -3,36 +3,26 @@
 public struct AnyAccess<Value>: Access {
 
     init(access: some Access<Value>) {
-        isValidFunc = { access.isValid() }
-        getFunc = { access.value }
-        setFunc = { access.value = $0 }
-    }
-
-    init(
-        isValid: @escaping @MainActor () -> Bool,
-        getter: @escaping @MainActor () -> Value,
-        setter: @escaping @MainActor (Value) -> Void
-    ) {
-        isValidFunc = isValid
-        getFunc = getter
-        setFunc = setter
+        self.access = .init(
+            getter: { access.value },
+            setter: { access.value = $0 },
+            isValid: { access.isValid() }
+        )
     }
 
     public var value: Value {
-        get { getFunc() }
-        nonmutating set { setFunc(newValue) }
+        get { access.value }
+        nonmutating set { access.value = newValue }
     }
 
     public func isValid() -> Bool {
-        isValidFunc()
+        access.isValid()
     }
 
     public func erase() -> AnyAccess<Value> {
         self
     }
 
-    private let setFunc: @MainActor (Value) -> Void
-    private let getFunc: @MainActor () -> Value
-    private let isValidFunc: @MainActor () -> Bool
+    private let access: Projecting.CapturedAccess<Value>
 
 }
