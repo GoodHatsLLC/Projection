@@ -39,7 +39,7 @@ final class InvalidHandlingTests: XCTestCase {
 
         // create a controllable further projection from root
         let next = rootProjection
-            ._statefulMap(
+            .statefulMap(
                 into: OtherState(abc: "HELLO", aaState: rootProjection.value.aaState),
                 validity: .condition({ _ in !shouldFail })
             ) { from, to in

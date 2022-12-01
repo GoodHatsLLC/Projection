@@ -18,9 +18,9 @@ final class Benchmarks: XCTestCase {
 
     func disabled_test_projectionPerformance() throws {
         measure { // Time: 0.940 sec
-            let projection = Projection {
+            let projection = Projection<Nested.Value>() {
                 self.nested
-            } set: { value in
+            } setter: { value in
                 self.nested = value
             }
             var next: Projection<Nested?> = projection.nested

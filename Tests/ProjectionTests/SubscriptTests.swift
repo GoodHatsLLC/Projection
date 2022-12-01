@@ -19,7 +19,7 @@ final class SubscriptTests: XCTestCase {
             .init(text: "one"),
             .init(text: "two"),
             .init(text: "three"),
-            .init(text: "four")
+            .init(text: "four"),
         ]
 
         let fourProjection = rootProjection.substates[4]

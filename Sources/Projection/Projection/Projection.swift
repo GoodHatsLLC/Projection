@@ -69,10 +69,28 @@ public struct Projection<Value>: Access {
         self.proxy = ProxyAccess(access)
     }
 
-    public init(
-        get getter: @escaping () -> Value,
-        set setter: @escaping (_ value: Value) -> Void,
+    public init<T>(
+        _ path: ReferenceWritableKeyPath<T, Value>,
+        on reference: T,
         isValid: @escaping () -> Bool = { true }
+    ) {
+        self = .init(
+            CapturedAccess(
+                getter: {
+                    reference[keyPath: path]
+                },
+                setter: {
+                    reference[keyPath: path] = $0
+                },
+                isValid: isValid
+            )
+        )
+    }
+
+    public init(
+        isValid: @escaping @autoclosure () -> Bool = true,
+        getter: @escaping () -> Value,
+        setter: @escaping (_ value: Value) -> Void
     ) {
         self = .init(
             CapturedAccess(
@@ -223,7 +241,7 @@ extension Projection {
         )
     }
 
-    public func _statefulMap<Downstream>(
+    public func statefulMap<Downstream>(
         into initial: Downstream,
         validity: Validity<Value> = .ifParent,
         @Bimapping<Value, Downstream> mapping: (
@@ -245,7 +263,6 @@ extension Projection {
             map: getMap
         )
     }
-
 }
 
 // MARK: CompactMap
@@ -267,7 +284,8 @@ extension Projection {
     }
 
     public func replaceNil<Downstream>(default defaultValue: Downstream) -> Projection<Downstream>
-        where Value == Downstream? {
+        where Value == Downstream?
+    {
         map { upstream in
             upstream ?? defaultValue
         } upwards: { varUpstream, downstream in
@@ -345,7 +363,8 @@ extension Projection: Collection where Value: MutableCollection {
     public func index(
         after i: Value.Index
     )
-        -> Value.Index {
+        -> Value.Index
+    {
         value.index(after: i)
     }
 
@@ -366,7 +385,7 @@ extension Projection: Collection where Value: MutableCollection {
                         aFromB: { a, b in
                             a[position] = b
                         }
-                    ).erase()
+                    ).erase(),
                 ]),
                 upstream: CapturedAccess(getter: { value }, setter: { value = $0 }),
                 downstream: ValueAccess(value[position])
@@ -378,7 +397,8 @@ extension Projection: Collection where Value: MutableCollection {
 // MARK: BidirectionalCollection
 
 extension Projection: BidirectionalCollection
-    where Value: BidirectionalCollection, Value: MutableCollection {
+    where Value: BidirectionalCollection, Value: MutableCollection
+{
     public func index(
         before i: Projection<Value>.Index
     ) -> Projection<Value>.Index {
@@ -398,7 +418,8 @@ extension Projection: RandomAccessCollection
     where Value: MutableCollection, Value: RandomAccessCollection {}
 
 extension Projection where Value: MutableCollection, Value: RangeReplaceableCollection,
-    Value.Element: Identifiable {
+    Value.Element: Identifiable
+{
 
     public func first(where isIncluded: @escaping (Value.Element) -> Bool) -> Projection<Value.Element?> {
         map(validity: .condition({ $0.contains(where: isIncluded) })) { upstream in

@@ -8,6 +8,14 @@ struct RootState: Codable & Equatable & Hashable & Sendable {
     var optionalTest = OptionalTest()
 }
 
+// MARK: - CompoundState
+
+struct CompoundState: Codable & Equatable & Hashable & Sendable {
+    var ccState = CState()
+    var bbState = BState()
+    var compoundState = ""
+}
+
 // MARK: - AState
 
 struct AState: Codable & Equatable & Hashable & Sendable {

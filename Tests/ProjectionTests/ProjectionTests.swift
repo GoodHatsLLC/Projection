@@ -87,7 +87,7 @@ final class ProjectionTests: XCTestCase {
                 .init(text: "one"),
                 .init(text: "two"),
                 .init(text: "three"),
-                .init(text: "four")
+                .init(text: "four"),
             ]
         )
         let rootProjection: Projection<ArrayState> = .captured(
@@ -105,7 +105,7 @@ final class ProjectionTests: XCTestCase {
                 .init(text: "one"),
                 .init(text: "two"),
                 .init(text: "three"),
-                .init(text: "four")
+                .init(text: "four"),
             ]
         )
         let rootProjection: Projection<ArrayState> = .captured(
@@ -122,7 +122,7 @@ final class ProjectionTests: XCTestCase {
 
     func testProjection_additiveMapping() throws {
         let next = rootProjection
-            ._statefulMap(
+            .statefulMap(
                 into: OtherState(
                     abc: "Hello",
                     aaState: rootProjection.value.aaState
