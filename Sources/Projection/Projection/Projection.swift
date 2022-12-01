@@ -26,21 +26,21 @@ import Bimapping
 /// - `filter`
 @MainActor
 @dynamicMemberLookup
-public struct Projection<Value>: Access {
+public struct Projection<Value>: Accessor {
 
-    public init(_ access: some Access<Value>) {
-        self.access = access
-    }
+  public init(_ access: some Accessor<Value>) {
+    self.access = access
+  }
 
-    public var value: Value {
-        get { access.value }
-        nonmutating set { access.value = newValue }
-    }
+  public var value: Value {
+    get { access.value }
+    nonmutating set { access.value = newValue }
+  }
 
-    public func isValid() -> Bool {
-        access.isValid()
-    }
+  public func isValid() -> Bool {
+    access.isValid()
+  }
 
-    private let access: any Access<Value>
+  private let access: any Accessor<Value>
 
 }
