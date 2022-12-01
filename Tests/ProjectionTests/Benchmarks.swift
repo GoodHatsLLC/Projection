@@ -16,8 +16,8 @@ final class BenchmarkTests: XCTestCase {
     nested = .end
   }
 
-  func _testProjectionPerformance() throws {
-    measure {  // Time: 0.725 sec
+  func testProjectionPerformance() throws {
+    measure {  // Time: 0.777 sec
       let projection = Projection<Nested.Value> {
         self.nested
       } setter: { value in
@@ -36,8 +36,8 @@ final class BenchmarkTests: XCTestCase {
 #if canImport(SwiftUI)
   import SwiftUI
   extension BenchmarkTests {
-    func _testBindingPerformance() throws {
-      measure {  // Time: 0.629 sec
+    func testBindingPerformance() throws {
+      measure {  // Time: 0.662 sec
         let projection = Binding {
           self.nested
         } set: { value in

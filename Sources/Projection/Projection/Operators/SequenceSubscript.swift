@@ -1,3 +1,5 @@
+import Bimapping
+
 // MARK: - Projection + Sequence
 
 extension Projection: Sequence where Value: MutableCollection {
@@ -38,12 +40,8 @@ extension Projection: Collection where Value: MutableCollection {
     map(
       Transform.Stateful(
         map: Update.Bimap(
-          paths: [
-            Bijection(
-              bFromA: { $0 = $1[position] },
-              aFromB: { $0[position] = $1 }
-            ).erase()
-          ]
+          bFromA: { $0 = $1[position] },
+          aFromB: { $0[position] = $1 }
         ),
         upstream: Access.CapturedAccess(
           getter: { value },

@@ -13,7 +13,10 @@ let package = Package(
     )
   ],
   dependencies: [
-    .package(url: "https://github.com/GoodHatsLLC/Bimapping.git", .upToNextMajor(from: "0.1.0"))
+    .package(
+      url: "https://github.com/GoodHatsLLC/Bimapping.git",
+      revision: "6539d38957c20feaf742258094e83dc603a2ad44"
+    )
   ],
   targets: [
     .target(

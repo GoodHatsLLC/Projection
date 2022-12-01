@@ -1,4 +1,4 @@
-extension Accessor {
+extension Projection {
 
   public static func proxy<V>(
     getter: @escaping () -> V,

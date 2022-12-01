@@ -12,8 +12,8 @@ extension Accessor {
       .map(
         Transform.Stateful(
           map: mapping(
-            Path(\Value.self),
-            Path(\Downstream.self)
+            Path(),
+            Path()
           ),
           upstream: self,
           downstream: Access.ValueAccess(initial),
